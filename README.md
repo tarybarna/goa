@@ -5,15 +5,15 @@ unique design-first approach.
 
 [![Build Status](https://travis-ci.org/goadesign/goa.svg?branch=master)](https://travis-ci.org/goadesign/goa)
 [![Windows Build status](https://ci.appveyor.com/api/projects/status/vixp37loj5i6qmaf/branch/master?svg=true)](https://ci.appveyor.com/project/RaphaelSimon/goa-oqtis/branch/master)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/goadesign/goa/blob/master/LICENSE)
-[![Godoc](https://godoc.org/github.com/goadesign/goa?status.svg)](https://godoc.org/gopkg.in/goadesign/goa.v1)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/tarybarna/goa/blob/master/LICENSE)
+[![Godoc](https://godoc.org/github.com/tarybarna/goa?status.svg)](https://godoc.org/gopkg.in/goadesign/goa.v1)
 [![Slack](https://img.shields.io/badge/slack-gophers-orange.svg?style=flat)](https://gophers.slack.com/messages/goa/)
 
 ## Why goa?
 
 goa takes a different approach to building micro-services. Instead of focusing
 solely on helping with implementation, goa makes it possible to describe the
-*design* of an API using a simple DSL. goa then uses that description to provide
+_design_ of an API using a simple DSL. goa then uses that description to provide
 specialized helper code to the implementation and to generate documentation, API
 clients, tests, even custom artifacts.
 
@@ -65,7 +65,7 @@ Goa v1 can be used with Go modules:
 ```bash
 export GO111MODULE=on
 go mod init <my project>
-go get github.com/goadesign/goa/...@v1
+go get github.com/tarybarna/goa/...@v1
 ```
 
 Or without Go modules by cloning the repo first:
@@ -74,9 +74,9 @@ Or without Go modules by cloning the repo first:
 cd $GOPATH/src
 mkdir -p github.com/goadesign
 cd github.com/goadesign
-git clone https://github.com/goadesign/goa
+git clone https://github.com/tarybarna/goa
 cd goa; git checkout v1
-go get -v github.com/goadesign/goa/...
+go get -v github.com/tarybarna/goa/...
 ```
 
 ### Stable Versions
@@ -96,12 +96,13 @@ Stable Branch: `v1`
 ### 1. Design
 
 Create the file `$GOPATH/src/goa-adder/design/design.go` with the following content:
+
 ```go
 package design
 
 import (
-        . "github.com/goadesign/goa/design"
-        . "github.com/goadesign/goa/design/apidsl"
+        . "github.com/tarybarna/goa/design"
+        . "github.com/tarybarna/goa/design/apidsl"
 )
 
 var _ = API("adder", func() {
@@ -124,6 +125,7 @@ var _ = Resource("operands", func() {
 
 })
 ```
+
 This file contains the design for an `adder` API which accepts HTTP GET requests to `/add/:x/:y`
 where `:x` and `:y` are placeholders for integer values. The API returns the sum of `x` and `y` in
 its body.
@@ -131,26 +133,29 @@ its body.
 ### 2. Implement
 
 Now that the design is done, let's run `goagen` on the design package:
+
 ```
 cd $GOPATH/src/goa-adder
 goagen bootstrap -d goa-adder/design
 ```
+
 This produces the following outputs:
 
-* `main.go` and `operands.go` contain scaffolding code to help bootstrap the implementation.
+- `main.go` and `operands.go` contain scaffolding code to help bootstrap the implementation.
   running `goagen` again does not recreate them so that it's safe to edit their content.
-* an `app` package which contains glue code that binds the low level HTTP server to your
+- an `app` package which contains glue code that binds the low level HTTP server to your
   implementation.
-* a `client` package with a `Client` struct that implements a `AddOperands` function which calls
+- a `client` package with a `Client` struct that implements a `AddOperands` function which calls
   the API with the given arguments and returns the `http.Response`.
-* a `tool` directory that contains the complete source for a client CLI tool.
-* a `swagger` package with implements the `GET /swagger.json` API endpoint. The response contains
+- a `tool` directory that contains the complete source for a client CLI tool.
+- a `swagger` package with implements the `GET /swagger.json` API endpoint. The response contains
   the full Swagger specificiation of the API.
 
 ### 3. Run
 
 First let's implement the API - edit the file `operands.go` and replace the content of the `Add`
 function with:
+
 ```
 // Add import for strconv
 import "strconv"
@@ -161,7 +166,9 @@ func (c *OperandsController) Add(ctx *app.AddOperandsContext) error {
         return ctx.OK([]byte(strconv.Itoa(sum)))
 }
 ```
+
 Now let's compile and run the service:
+
 ```
 cd $GOPATH/src/goa-adder
 go build
@@ -169,12 +176,16 @@ go build
 2016/04/05 20:39:10 [INFO] mount ctrl=Operands action=Add route=GET /add/:left/:right
 2016/04/05 20:39:10 [INFO] listen transport=http addr=:8080
 ```
+
 Open a new console and compile the generated CLI tool:
+
 ```
 cd $GOPATH/src/goa-adder/tool/adder-cli
 go build
 ```
+
 The tool includes contextual help:
+
 ```
 ./adder-cli --help
 CLI client for the adder service
@@ -193,7 +204,9 @@ Flags:
 
 Use "adder-cli [command] --help" for more information about a command.
 ```
+
 To get information on how to call a specific API use:
+
 ```
 ./adder-cli add operands --help
 Usage:
@@ -210,33 +223,42 @@ Global Flags:
   -s, --scheme string      Set the requests scheme
   -t, --timeout duration   Set the request timeout (default 20s)
 ```
+
 Now let's run it:
+
 ```
 ./adder-cli add operands /add/1/2
 2016/04/05 20:43:18 [INFO] started id=HffVaGiH GET=http://localhost:8080/add/1/2
 2016/04/05 20:43:18 [INFO] completed id=HffVaGiH status=200 time=1.028827ms
 3⏎
 ```
+
 This also works:
+
 ```
 $ ./adder-cli add operands --left=1 --right=2
 2016/04/25 00:08:59 [INFO] started id=ouKmwdWp GET=http://localhost:8080/add/1/2
 2016/04/25 00:08:59 [INFO] completed id=ouKmwdWp status=200 time=1.097749ms
 3⏎
 ```
+
 The console running the service shows the request that was just handled:
+
 ```
 2016/06/06 10:23:03 [INFO] started req_id=rLAtsSThLD-1 GET=/add/1/2 from=::1 ctrl=OperandsController action=Add
 2016/06/06 10:23:03 [INFO] params req_id=rLAtsSThLD-1 right=2 left=1
 2016/06/06 10:23:03 [INFO] completed req_id=rLAtsSThLD-1 status=200 bytes=1 time=66.25µs
 ```
+
 Now let's see how robust our service is and try to use non integer values:
+
 ```
 ./adder-cli add operands add/1/d
 2016/06/06 10:24:22 [INFO] started id=Q2u/lPUc GET=http://localhost:8080/add/1/d
 2016/06/06 10:24:22 [INFO] completed id=Q2u/lPUc status=400 time=1.301083ms
 error: 400: {"code":"invalid_request","status":400,"detail":"invalid value \"d\" for parameter \"right\", must be a integer"}
 ```
+
 As you can see the generated code validated the incoming request against the types defined in the
 design.
 
@@ -249,7 +271,7 @@ For open source projects hosted on
 github [swagger.goa.design](http://swagger.goa.design) provides a free service
 that renders the Swagger representation dynamically from goa design packages.
 Simply set the `url` query string with the import path to the design package.
-For example displaying the docs for `github.com/goadesign/goa-cellar/design` is
+For example displaying the docs for `github.com/tarybarna/goa-cellar/design` is
 done by browsing to:
 
 http://swagger.goa.design/?url=goadesign%2Fgoa-cellar%2Fdesign
@@ -293,7 +315,7 @@ go build
 2016/06/06 10:31:14 [INFO] listen transport=http addr=:8080
 ```
 
-Note the new route `/swagger.json`.  Requests made to it return the Swagger specification. The
+Note the new route `/swagger.json`. Requests made to it return the Swagger specification. The
 generated controller also takes care of adding the proper CORS headers so that the JSON may be
 retrieved from browsers using JavaScript served from a different origin (e.g. via Swagger UI). The
 client also has a new `download` action:
@@ -342,7 +364,7 @@ started guide, detailed DSL documentation as well as information on how to imple
 The [examples](https://github.com/goadesign/examples) repo contains simple examples illustrating
 basic concepts.
 
-The [goa-cellar](https://github.com/goadesign/goa-cellar) repo contains the implementation for a
+The [goa-cellar](https://github.com/tarybarna/goa-cellar) repo contains the implementation for a
 goa service which demonstrates many aspects of the design language. It is kept up-to-date and
 provides a reference for testing functionality.
 

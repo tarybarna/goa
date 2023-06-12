@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"net/url"
 
-	"github.com/goadesign/goa"
+	"github.com/tarybarna/goa"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )

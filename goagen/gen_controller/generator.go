@@ -8,10 +8,10 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/goadesign/goa/design"
-	"github.com/goadesign/goa/goagen/codegen"
-	genmain "github.com/goadesign/goa/goagen/gen_main"
-	"github.com/goadesign/goa/goagen/utils"
+	"github.com/tarybarna/goa/design"
+	"github.com/tarybarna/goa/goagen/codegen"
+	genmain "github.com/tarybarna/goa/goagen/gen_main"
+	"github.com/tarybarna/goa/goagen/utils"
 )
 
 //NewGenerator returns an initialized instance of a JavaScript Client Generator

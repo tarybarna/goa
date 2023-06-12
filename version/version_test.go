@@ -3,7 +3,7 @@ package version_test
 import (
 	"strconv"
 
-	"github.com/goadesign/goa/version"
+	"github.com/tarybarna/goa/version"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )

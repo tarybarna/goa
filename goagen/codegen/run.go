@@ -1,6 +1,6 @@
 package codegen
 
-import "github.com/goadesign/goa/dslengine"
+import "github.com/tarybarna/goa/dslengine"
 
 type generator interface {
 	Generate() ([]string, error)

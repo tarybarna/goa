@@ -18,7 +18,7 @@ import (
 	"context"
 
 	"github.com/go-kit/kit/log"
-	"github.com/goadesign/goa"
+	"github.com/tarybarna/goa"
 )
 
 // adapter is the go-kit log goa logger adapter.

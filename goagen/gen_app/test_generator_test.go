@@ -6,17 +6,17 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/goadesign/goa/design"
-	"github.com/goadesign/goa/dslengine"
-	"github.com/goadesign/goa/goagen/codegen"
-	genapp "github.com/goadesign/goa/goagen/gen_app"
-	"github.com/goadesign/goa/version"
+	"github.com/tarybarna/goa/design"
+	"github.com/tarybarna/goa/dslengine"
+	"github.com/tarybarna/goa/goagen/codegen"
+	genapp "github.com/tarybarna/goa/goagen/gen_app"
+	"github.com/tarybarna/goa/version"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )
 
 var _ = Describe("Generate", func() {
-	const testgenPackagePath = "github.com/goadesign/goa/goagen/gen_app/test_"
+	const testgenPackagePath = "github.com/tarybarna/goa/goagen/gen_app/test_"
 
 	var outDir string
 	var files []string

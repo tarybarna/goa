@@ -1,8 +1,8 @@
 package design_test
 
 import (
-	"github.com/goadesign/goa/design"
-	"github.com/goadesign/goa/dslengine"
+	"github.com/tarybarna/goa/design"
+	"github.com/tarybarna/goa/dslengine"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )

@@ -5,9 +5,9 @@ import (
 	"mime"
 	"sync"
 
-	. "github.com/goadesign/goa/design"
-	. "github.com/goadesign/goa/design/apidsl"
-	"github.com/goadesign/goa/dslengine"
+	. "github.com/tarybarna/goa/design"
+	. "github.com/tarybarna/goa/design/apidsl"
+	"github.com/tarybarna/goa/dslengine"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )

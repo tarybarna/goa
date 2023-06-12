@@ -4,8 +4,8 @@ import (
 	"bytes"
 
 	"github.com/go-kit/kit/log"
-	"github.com/goadesign/goa"
-	goakit "github.com/goadesign/goa/logging/kit"
+	"github.com/tarybarna/goa"
+	goakit "github.com/tarybarna/goa/logging/kit"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )

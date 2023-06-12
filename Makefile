@@ -16,8 +16,8 @@ DIRS=$(shell go list -f {{.Dir}} ./...)
 # Standard dependencies are installed via go get
 DEPEND=\
 	github.com/go-openapi/loads \
-	github.com/goadesign/goa-cellar \
-	github.com/goadesign/goa.design/tools/mdc \
+	github.com/tarybarna/goa-cellar \
+	github.com/tarybarna/goa.design/tools/mdc \
 	github.com/fzipp/gocyclo \
 	github.com/onsi/ginkgo \
 	github.com/onsi/ginkgo/ginkgo \
@@ -33,9 +33,9 @@ all: depend lint cyclo goagen test
 
 docs:
 	@go get -v github.com/spf13/hugo
-	@git clone https://github.com/goadesign/goa.design
+	@git clone https://github.com/tarybarna/goa.design
 	@rm -rf goa.design/content/reference goa.design/public
-	@mdc --exclude goa.design github.com/goadesign/goa goa.design/content/reference
+	@mdc --exclude goa.design github.com/tarybarna/goa goa.design/content/reference
 	@cd goa.design && hugo
 	@rm -rf public
 	@mv goa.design/public public

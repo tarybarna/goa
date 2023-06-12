@@ -7,7 +7,7 @@ import (
 
 	"context"
 
-	"github.com/goadesign/goa/middleware"
+	"github.com/tarybarna/goa/middleware"
 	. "github.com/onsi/ginkgo"
 	. "github.com/onsi/gomega"
 )

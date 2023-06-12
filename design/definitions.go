@@ -9,7 +9,7 @@ import (
 	"strings"
 
 	"github.com/dimfeld/httppath"
-	"github.com/goadesign/goa/dslengine"
+	"github.com/tarybarna/goa/dslengine"
 )
 
 type (
