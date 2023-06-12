@@ -8,10 +8,10 @@ import (
 	"strings"
 	"time"
 
-	"github.com/goadesign/goa/goagen/codegen"
-	"github.com/goadesign/goa/goagen/meta"
-	"github.com/goadesign/goa/goagen/utils"
-	"github.com/goadesign/goa/version"
+	"github.com/tarybarna/goa/goagen/codegen"
+	"github.com/tarybarna/goa/goagen/meta"
+	"github.com/tarybarna/goa/goagen/utils"
+	"github.com/tarybarna/goa/version"
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
 
